@@ -7,7 +7,7 @@ app = Flask(__name__)
 class PDF(FPDF):
     def header(self):
         # 1. Tambahkan Logo UMITRA (Pastikan file logo_umitra.png ada di folder)
-        self.image('Logo_umitra.png', 12, 8, 30) 
+        self.image('Logo_umitra.png', 14, 14, 24) 
         
         lebar_teks = self.w - 50
         
