@@ -27,8 +27,7 @@ class PDF(FPDF):
         self.line(10, 40, self.w - 10, 40) 
         self.ln(12) 
 
-        self.set_y(46)  # Atur posisi Y untuk isi surat agar tidak terlalu dekat dengan kop
-
+    
     def footer(self):
         self.set_y(-15)
         self.set_line_width(0.2)
@@ -73,7 +72,7 @@ def generate_pdf():
     kota = request.form.get('kota_mhs')
     tujuan = request.form.get('tujuan')
 
-    alamat_lengkap = f"{alamat}, Kecamatan {kecamatan}, Kota {kota}"
+    alamat_lengkap = f"{alamat}, Kec. {kecamatan}, {kota}"
 
     # Memanggil fungsi otomatis untuk mendapatkan string misal: "2025/2026 Genap"
     semester_berjalan = hitung_semester_berjalan()
