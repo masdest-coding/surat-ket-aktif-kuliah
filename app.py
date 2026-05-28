@@ -35,6 +35,24 @@ class PDF(FPDF):
         teks_footer = 'Telepon: (0721) 701418 | Website: www.umitra.ac.id | Email: info@umitra.ac.id'
         self.cell(0, 10, teks_footer, 0, 0, 'C')
 
+# Fungsi Logika untuk Mendeteksi Tahun Akademik & Semester Berjalan secara Otomatis
+def hitung_semester_berjalan():
+    sekarang = datetime.now()
+    bulan = sekarang.month
+    tahun = sekarang.year
+    
+    # Jika bulan Maret (3) sampai Agustus (8) -> Masuk Genap
+    if 3 <= bulan <= 8:
+        tahun_akademik = f"{tahun-1}/{tahun} Genap"
+    # Jika bulan September (9) sampai Desember (12) -> Masuk Ganjil (Tahun ini/Tahun depan)
+    elif bulan >= 9:
+        tahun_akademik = f"{tahun}/{tahun+1} Ganjil"
+    # Jika bulan Januari (1) atau Februari (2) -> Masuk Ganjil (Tahun lalu/Tahun ini)
+    else:
+        tahun_akademik = f"{tahun-1}/{tahun} Ganjil"
+        
+    return tahun_akademik
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -47,11 +65,17 @@ def generate_pdf():
     ttl = request.form.get('ttl_mhs')
     fakultas = request.form.get('fakultas')
     prodi = request.form.get('prodi')
-    semester = request.form.get('semester')
+    semester_angka = request.form.get('semester')
     alamat = request.form.get('alamat_mhs')
     kecamatan = request.form.get('kec_mhs')
     kota = request.form.get('kota_mhs')
     tujuan = request.form.get('tujuan')
+
+    alamat_lengkap = f"{alamat}, Kecamatan {kecamatan}, Kota {kota}"
+
+    # Memanggil fungsi otomatis untuk mendapatkan string misal: "2025/2026 Genap"
+    semester_berjalan = hitung_semester_berjalan()
+    tahun_sekarang = datetime.now().year
 
     # Inisialisasi PDF
     pdf = PDF()
@@ -92,7 +116,7 @@ def generate_pdf():
     
     pdf.cell(40, 8, 'Semester', 0, 0)
     pdf.cell(5, 8, ':', 0, 0)
-    pdf.cell(0, 8, semester, 0, 1)
+    pdf.cell(0, 8, semester_angka, 0, 1)
 
     pdf.cell(40, 8, 'Alamat', 0, 0)
     pdf.cell(5, 8, ':', 0, 0)
@@ -106,9 +130,13 @@ def generate_pdf():
     pdf.cell(5, 8, ':', 0, 0)
     pdf.cell(0, 8, kota, 0, 1)
 
+    pdf.cell(40, 8, 'Alamat Lengkap', 0, 0)
+    pdf.cell(5, 8, ':', 0, 0)
+    pdf.cell(0, 8, alamat_lengkap, 0, 1, 'L')
+
     pdf.ln(5)
-    isi_penutup = f"Adalah benar berstatus sebagai mahasiswa AKTIF pada semester berjalan di lingkungan Universitas Mitra Indonesia. Surat keterangan ini dibuat untuk keperluan: {tujuan}."
-    pdf.multi_cell(0, 8, isi_penutup)
+    isi_penutup = f"Adalah benar berstatus sebagai mahasiswa AKTIF pada semester {semester_berjalan} di lingkungan Universitas Mitra Indonesia. Surat keterangan ini dibuat untuk keperluan: {tujuan}."
+    pdf.multi_cell(0, 8, isi_penutup, 0, 'J')
     
     pdf.ln(5)
     pdf.multi_cell(0, 8, 'Demikian surat keterangan ini dibuat agar dapat dipergunakan sebagaimana mestinya. Dokumen ini wajib divalidasi dan ditandatangani secara langsung di loket BAAK.')
