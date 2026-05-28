@@ -61,7 +61,7 @@ def generate_pdf():
     pdf.set_font('Arial', 'BU', 14)
     pdf.cell(0, 10, 'SURAT KETERANGAN AKTIF KULIAH', 0, 1, 'C')
     pdf.set_font('Arial', '', 12)
-    pdf.cell(0, 5, 'Nomor: S.05/.... /UM/BAAK/2026', 0, 1, 'C')
+    pdf.cell(0, 5, 'Nomor: S.01/.... /UMITRA/BAAK/2026', 0, 1, 'C')
     pdf.ln(10)
 
     # Isi Surat
