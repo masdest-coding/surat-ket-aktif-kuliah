@@ -7,16 +7,16 @@ app = Flask(__name__)
 class PDF(FPDF):
     def header(self):
         # 1. Tambahkan Logo UMITRA (Pastikan file logo_umitra.png ada di folder)
-        self.image('Logo_umitra.png', 15, 10, 25) 
+        self.image('Logo_umitra.png', 15, 10, 22) 
         
         # 2. Atur Teks Kop Surat Resmi (Diperbarui ke Kementerian Baru)
-        self.set_x(45)
+        self.set_xy(45, 11)
         self.set_font('Arial', 'B', 10) # Ukuran font 10 agar teks panjang tetap rapi dalam satu baris
         self.cell(0, 6, 'KEMENTERIAN PENDIDIKAN TINGGI, SAINS, DAN TEKNOLOGI', 0, 1, 'L')
         
         self.set_x(45)
         self.set_font('Arial', 'B', 14)
-        self.cell(0, 8, 'UNIVERSITAS MITRA INDONESIA (UMITRA)', 0, 1, 'L')
+        self.cell(0, 8, 'UNIVERSITAS MITRA INDONESIA', 0, 1, 'L')
         
         self.set_x(45)
         self.set_font('Arial', '', 9)
@@ -24,13 +24,15 @@ class PDF(FPDF):
         
         # 3. Garis Pembatas Kop Surat
         self.set_line_width(0.6) 
-        self.line(10, 40, 200, 40) 
+        self.line(10, 40, self.w - 10, 40) 
         self.ln(12) 
+
+        self.set_y(46)  # Atur posisi Y untuk isi surat agar tidak terlalu dekat dengan kop
 
     def footer(self):
         self.set_y(-15)
         self.set_line_width(0.2)
-        self.line(10, 282, 200, 282) 
+        self.line(10, 282, self.w - 10, 282) 
         self.set_font('Arial', 'I', 8)
         teks_footer = 'Telepon: (0721) 701418 | Website: www.umitra.ac.id | Email: info@umitra.ac.id'
         self.cell(0, 10, teks_footer, 0, 0, 'C')
@@ -78,7 +80,7 @@ def generate_pdf():
     tahun_sekarang = datetime.now().year
 
     # Inisialisasi PDF
-    pdf = PDF()
+    pdf = PDF(format='Legal')  # Ukuran kertas Legal (8.5 x 14 inch)
     pdf.add_page()
     
     # Judul Surat
