@@ -7,31 +7,65 @@ app = Flask(__name__)
 class PDF(FPDF):
     def header(self):
         # 1. Tambahkan Logo UMITRA (Pastikan file logo_umitra.png ada di folder)
-        self.image('Logo_umitra.png', 15, 10, 22) 
+        self.image('Logo_umitra.png', 12, 10, 24) 
         
-        # 2. Atur Teks Kop Surat Resmi (Diperbarui ke Kementerian Baru)
-        self.set_xy(45, 11)
-        self.set_font('Arial', 'B', 10) # Ukuran font 10 agar teks panjang tetap rapi dalam satu baris
-        self.cell(0, 6, 'KEMENTERIAN PENDIDIKAN TINGGI, SAINS, DAN TEKNOLOGI', 0, 1, 'L')
+        lebar_teks = self.w - 50
         
-        self.set_x(45)
-        self.set_font('Arial', 'B', 14)
-        self.cell(0, 8, 'UNIVERSITAS MITRA INDONESIA', 0, 1, 'L')
+        # Baris 1: KEMENTERIAN (Font Arial Reguler, 11pt)
+        self.set_xy(40, 11) 
+        self.set_font('Arial', '', 11)
+        # Huruf 'C' di akhir berfungsi meratakan teks ke tengah (Center)
+        self.cell(lebar_teks, 5, 'KEMENTERIAN PENDIDIKAN TINGGI, SAINS, DAN TEKNOLOGI', 0, 1, 'C')
         
-        self.set_x(45)
+        # Baris 2: NAMA KAMPUS (Font Arial Bold, 16pt - Paling Besar)
+        self.set_x(40) 
+        self.set_font('Arial', 'B', 16)
+        self.cell(lebar_teks, 8, 'UNIVERSITAS MITRA INDONESIA', 0, 1, 'C')
+        
+        # Baris 3: ALAMAT (Font Arial Reguler, 9pt)
+        self.set_x(40)
         self.set_font('Arial', '', 9)
-        self.cell(0, 5, 'Jl. Z.A. Pagar Alam No. 7, Gedong Meneng, Rajabasa, Bandar Lampung, Lampung 40115', 0, 1, 'L')
+        self.cell(lebar_teks, 4.5, 'Jl. Z.A. Pagar Alam No. 7, Gedong Meneng, Rajabasa, Bandar Lampung, Lampung 40115', 0, 1, 'C')
         
-        # 3. Garis Pembatas Kop Surat
-        self.set_line_width(0.6) 
-        self.line(10, 40, self.w - 10, 40) 
-        self.ln(12) 
+        # Baris 4: KONTAK (Font Arial Reguler, 9pt)
+        self.set_x(40)
+        self.set_font('Arial', '', 9)
+        self.cell(lebar_teks, 4.5, 'Telepon: (0721) 701418 | Website: www.umitra.ac.id | Email: info@umitra.ac.id', 0, 1, 'C')
+        
+        # =====================================================================
+        # 3. GARIS PEMBATAS KOP SURAT (Garis Ganda / Double Line)
+        # =====================================================================
+        # Garis Pertama (Lebih Tebal)
+        self.set_line_width(0.8) 
+        self.line(10, 36, self.w - 10, 36)
+        
+        # Garis Kedua (Tipis, tepat di bawah garis tebal)
+        self.set_line_width(0.2) 
+        self.line(10, 37.5, self.w - 10, 37.5)
+        
+        # =====================================================================
+        # 4. RESET KOORDINAT UNTUK ISI SURAT
+        # =====================================================================
+        # Memastikan isi surat selalu mulai dengan jarak aman dari garis
+        self.set_y(46)
 
     
     def footer(self):
+        # 1. Posisikan kursor otomatis 1.5 cm (15 mm) dari ujung bawah kertas apa pun
         self.set_y(-15)
+        
+        # 2. AMBIL KOORDINAT Y AKTUAL YANG SUDAH PRESISI
+        y_sekarang = self.get_y()
+        
+        # 3. Gambar garis tipis tepat di koordinat Y tersebut
         self.set_line_width(0.2)
-        self.line(10, 282, self.w - 10, 282) 
+        # self.w - 10 memastikan ujung garis berjarak 10mm dari tepi kanan kertas
+        self.line(10, y_sekarang, self.w - 10, y_sekarang)
+        
+        # 4. Geser kursor sedikit (1 mm) ke bawah agar teks tidak menabrak garis
+        self.set_y(y_sekarang + 1)
+        
+        # 5. Cetak teks footer
         self.set_font('Arial', 'I', 8)
         teks_footer = 'Telepon: (0721) 701418 | Website: www.umitra.ac.id | Email: info@umitra.ac.id'
         self.cell(0, 10, teks_footer, 0, 0, 'C')
