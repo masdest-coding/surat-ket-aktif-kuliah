@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, make_response
-from fpdf import FPDF
+from flask import Flask, render_template, request, make_response  # type: ignore[import]
+from fpdf import FPDF  # type: ignore[import]
 from datetime import datetime
 
 app = Flask(__name__)
@@ -8,7 +8,7 @@ class PDF(FPDF):
     def header(self):
         # Kop Surat
         self.set_font('Arial', 'B', 14)
-        self.cell(0, 10, 'KEMENTERIAN PENDIDIKAN TINGGI, SAINS DAN TEKNOLOGI', 0, 1, 'C')
+        self.cell(0, 10, 'KEMENTRIAN PENDIDIKAN TINGGI, SAINS DAN TEKNOLOGI', 0, 1, 'C')
         self.set_font('Arial', 'B', 16)
         self.cell(0, 10, 'UNIVERSITAS MITRA INDONESIA', 0, 1, 'C')
         self.set_font('Arial', '', 10)
