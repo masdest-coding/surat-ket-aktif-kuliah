@@ -152,19 +152,7 @@ def generate_pdf():
     pdf.cell(40, 8, 'Semester', 0, 0)
     pdf.cell(5, 8, ':', 0, 0)
     pdf.cell(0, 8, semester_angka, 0, 1)
-
-    pdf.cell(40, 8, 'Alamat', 0, 0)
-    pdf.cell(5, 8, ':', 0, 0)
-    pdf.cell(0, 8, alamat, 0, 1)
-
-    pdf.cell(40, 8, 'Kecamatan', 0, 0)
-    pdf.cell(5, 8, ':', 0, 0)
-    pdf.cell(0, 8, kecamatan, 0, 1)
-
-    pdf.cell(40, 8, 'Kota', 0, 0)
-    pdf.cell(5, 8, ':', 0, 0)
-    pdf.cell(0, 8, kota, 0, 1)
-
+        
     pdf.cell(40, 8, 'Alamat Lengkap', 0, 0)
     pdf.cell(5, 8, ':', 0, 0)
     pdf.cell(0, 8, alamat_lengkap, 0, 1, 'L')
