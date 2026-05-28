@@ -6,15 +6,34 @@ app = Flask(__name__)
 
 class PDF(FPDF):
     def header(self):
-        # Kop Surat
+        # 1. Tambahkan Logo UMITRA (Pastikan file logo_umitra.png ada di folder)
+        self.image('Logo_umitra.png', 15, 10, 25) 
+        
+        # 2. Atur Teks Kop Surat Resmi (Diperbarui ke Kementerian Baru)
+        self.set_x(45)
+        self.set_font('Arial', 'B', 10) # Ukuran font 10 agar teks panjang tetap rapi dalam satu baris
+        self.cell(0, 6, 'KEMENTERIAN PENDIDIKAN TINGGI, SAINS, DAN TEKNOLOGI', 0, 1, 'L')
+        
+        self.set_x(45)
         self.set_font('Arial', 'B', 14)
-        self.cell(0, 10, 'KEMENTRIAN PENDIDIKAN TINGGI, SAINS DAN TEKNOLOGI', 0, 1, 'C')
-        self.set_font('Arial', 'B', 16)
-        self.cell(0, 10, 'UNIVERSITAS MITRA INDONESIA', 0, 1, 'C')
-        self.set_font('Arial', '', 10)
-        self.cell(0, 5, 'Jl. Zainal Abidin Pagar Alam No.7 Gedung Meneng Rajabasa, Bandar Lampung 35145', 0, 1, 'C')
-        self.line(10, 35, 200, 35)
-        self.ln(10)
+        self.cell(0, 8, 'UNIVERSITAS MITRA INDONESIA (UMITRA)', 0, 1, 'L')
+        
+        self.set_x(45)
+        self.set_font('Arial', '', 9)
+        self.cell(0, 5, 'Jl. Z.A. Pagar Alam No. 7, Gedong Meneng, Rajabasa, Bandar Lampung, Lampung 40115', 0, 1, 'L')
+        
+        # 3. Garis Pembatas Kop Surat
+        self.set_line_width(0.6) 
+        self.line(10, 40, 200, 40) 
+        self.ln(12) 
+
+    def footer(self):
+        self.set_y(-15)
+        self.set_line_width(0.2)
+        self.line(10, 282, 200, 282) 
+        self.set_font('Arial', 'I', 8)
+        teks_footer = 'Telepon: (0721) 701418 | Website: www.umitra.ac.id | Email: info@umitra.ac.id'
+        self.cell(0, 10, teks_footer, 0, 0, 'C')
 
 @app.route('/')
 def index():
@@ -39,9 +58,9 @@ def generate_pdf():
     pdf.add_page()
     
     # Judul Surat
-    pdf.set_font('Arial', 'BU', 12)
+    pdf.set_font('Arial', 'BU', 14)
     pdf.cell(0, 10, 'SURAT KETERANGAN AKTIF KULIAH', 0, 1, 'C')
-    pdf.set_font('Arial', '', 11)
+    pdf.set_font('Arial', '', 12)
     pdf.cell(0, 5, 'Nomor: S.05/.... /UM/BAAK/2026', 0, 1, 'C')
     pdf.ln(10)
 
