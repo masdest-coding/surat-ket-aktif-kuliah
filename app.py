@@ -15,23 +15,23 @@ class PDF(FPDF):
         # Baris 1: KEMENTERIAN (Arial 11pt)
         self.set_xy(titik_x_teks, 11) 
         self.set_font('Arial', '', 12)
-        self.cell(lebar_teks, 8, 'KEMENTERIAN PENDIDIKAN TINGGI, SAINS, DAN TEKNOLOGI', 0, 1, 'C')
+        self.cell(lebar_teks, 11, 'KEMENTERIAN PENDIDIKAN TINGGI, SAINS, DAN TEKNOLOGI', 0, 1, 'C')
         
         # Baris 2: NAMA KAMPUS (Font: 18pt - Bold - Paling Besar)
         # Ukuran font kampus dinaikkan sedikit agar mengimbangi besarnya logo
         self.set_x(titik_x_teks) 
         self.set_font('Arial', 'B', 18)
-        self.cell(lebar_teks, 10, 'UNIVERSITAS MITRA INDONESIA', 0, 1, 'C')
+        self.cell(lebar_teks, 11, 'UNIVERSITAS MITRA INDONESIA', 0, 1, 'C')
         
         # Baris 3: ALAMAT
         self.set_x(titik_x_teks)
         self.set_font('Arial', '', 10)
-        self.cell(lebar_teks, 5, 'Jl. Z.A. Pagar Alam No. 7, Gedong Meneng, Rajabasa, Bandar Lampung, Lampung 35145', 0, 1, 'C')
+        self.cell(lebar_teks, 7, 'Jl. Z.A. Pagar Alam No. 7, Gedong Meneng, Rajabasa, Bandar Lampung, Lampung 35145', 0, 1, 'C')
         
         # Baris 4: KONTAK
         self.set_x(titik_x_teks)
         self.set_font('Arial', '', 10)
-        self.cell(lebar_teks, 5, 'Telepon: (0721) 701418 | Website: www.umitra.ac.id | Email: info@umitra.ac.id', 0, 1, 'C')
+        self.cell(lebar_teks, 7, 'Telepon: (0721) 701418 | Website: www.umitra.ac.id | Email: info@umitra.ac.id', 0, 1, 'C')
         
         # =====================================================================
         # 3. GARIS PEMBATAS KOP SURAT (DOUBLE LINE)
