@@ -12,7 +12,7 @@ class PDF(FPDF):
         lebar_teks = self.w - 50
         
         # Baris 1: KEMENTERIAN (Font Arial Reguler, 11pt)
-        self.set_xy(40, 12) 
+        self.set_xy(40, 9) 
         self.set_font('Arial', '', 12)
         # Huruf 'C' di akhir berfungsi meratakan teks ke tengah (Center)
         self.cell(lebar_teks, 8, 'KEMENTERIAN PENDIDIKAN TINGGI, SAINS, DAN TEKNOLOGI', 0, 1, 'C')
