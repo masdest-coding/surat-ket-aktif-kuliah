@@ -170,7 +170,16 @@ def generate_pdf():
 
     # Tanda Tangan BAAK
     pdf.ln(15)
-    tanggal_sekarang = datetime.now().strftime("%d %B %Y")
+    # 1. Mengambil waktu saat ini
+    waktu_sekarang = datetime.now()
+    # 2. Membuat daftar nama bulan dalam Bahasa Indonesia (index 0 dikosongkan)
+    bulan_indo = [
+        '', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+        'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+    ]
+    # 3. Merangkai format tanggal (Contoh: 29 Mei 2026)
+    tanggal_sekarang = f"{waktu_sekarang.day} {bulan_indo[waktu_sekarang.month]} {waktu_sekarang.year}"
+
     pdf.cell(120)
     pdf.cell(0, 6, f'Bandar Lampung, {tanggal_sekarang}', 0, 1, 'L')
     pdf.cell(120)
