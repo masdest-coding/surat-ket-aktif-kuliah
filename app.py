@@ -37,11 +37,11 @@ class PDF(FPDF):
         # =====================================================================
         # Garis Pertama (Lebih Tebal)
         self.set_line_width(0.8) 
-        self.line(10, 36, self.w - 10, 36)
+        self.line(10, 37.5, self.w - 10, 37.5)
         
         # Garis Kedua (Tipis, tepat di bawah garis tebal)
         self.set_line_width(0.2) 
-        self.line(10, 37.5, self.w - 10, 37.5)
+        self.line(10, 38.5, self.w - 10, 38.5)
         
         # =====================================================================
         # 4. RESET KOORDINAT UNTUK ISI SURAT
