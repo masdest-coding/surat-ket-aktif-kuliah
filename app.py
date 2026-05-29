@@ -7,15 +7,15 @@ app = Flask(__name__)
 class PDF(FPDF):
     def header(self):
         # 1. Tambahkan Logo UMITRA (Pastikan file logo_umitra.png ada di folder)
-        self.image('Logo_umitra.png', 10, 10, 22) 
+        self.image('Logo_umitra.png', 10, 10, 30) 
         
         lebar_teks = self.w - 50
         
         # Baris 1: KEMENTERIAN (Font Arial Reguler, 11pt)
-        self.set_xy(40, 11) 
-        self.set_font('Arial', '', 11)
+        self.set_xy(40, 12) 
+        self.set_font('Arial', '', 12)
         # Huruf 'C' di akhir berfungsi meratakan teks ke tengah (Center)
-        self.cell(lebar_teks, 5, 'KEMENTERIAN PENDIDIKAN TINGGI, SAINS, DAN TEKNOLOGI', 0, 1, 'C')
+        self.cell(lebar_teks, 8, 'KEMENTERIAN PENDIDIKAN TINGGI, SAINS, DAN TEKNOLOGI', 0, 1, 'C')
         
         # Baris 2: NAMA KAMPUS (Font Arial Bold, 16pt - Paling Besar)
         self.set_x(40) 
