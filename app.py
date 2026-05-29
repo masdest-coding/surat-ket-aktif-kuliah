@@ -7,47 +7,50 @@ app = Flask(__name__)
 class PDF(FPDF):
     def header(self):
         # 1. Tambahkan Logo UMITRA (Pastikan file logo_umitra.png ada di folder)
-        self.image('Logo_umitra.png', 10, 10, 30) 
+        self.image('Logo_umitra.png', 10, 10, 35) 
         
-        lebar_teks = self.w - 50
+        lebar_teks = self.w - 60
+        titik_x_text = 50
+        # Baris 1: KEMENTERIAN (Arial 11pt)
+        self.set_xy(titik_x_teks, 11) 
+        self.set_font('Arial', '', 11)
+        self.cell(lebar_teks, 5, 'KEMENTERIAN PENDIDIKAN TINGGI, SAINS, DAN TEKNOLOGI', 0, 1, 'C')
         
-        # Baris 1: KEMENTERIAN (Font Arial Reguler, 11pt)
-        self.set_xy(40, 9) 
-        self.set_font('Arial', '', 12)
-        # Huruf 'C' di akhir berfungsi meratakan teks ke tengah (Center)
-        self.cell(lebar_teks, 8, 'KEMENTERIAN PENDIDIKAN TINGGI, SAINS, DAN TEKNOLOGI', 0, 1, 'C')
+        # Baris 2: NAMA KAMPUS (Font: 18pt - Bold - Paling Besar)
+        # Ukuran font kampus dinaikkan sedikit agar mengimbangi besarnya logo
+        self.set_x(titik_x_teks) 
+        self.set_font('Arial', 'B', 18)
+        self.cell(lebar_teks, 9, 'UNIVERSITAS MITRA INDONESIA', 0, 1, 'C')
         
-        # Baris 2: NAMA KAMPUS (Font Arial Bold, 16pt - Paling Besar)
-        self.set_x(40) 
-        self.set_font('Arial', 'B', 16)
-        self.cell(lebar_teks, 8, 'UNIVERSITAS MITRA INDONESIA', 0, 1, 'C')
-        
-        # Baris 3: ALAMAT (Font Arial Reguler, 9pt)
-        self.set_x(40)
+        # Baris 3: ALAMAT
+        self.set_x(titik_x_teks)
         self.set_font('Arial', '', 9)
-        self.cell(lebar_teks, 4.5, 'Jl. Z.A. Pagar Alam No. 7, Gedong Meneng, Rajabasa, Bandar Lampung, Lampung 40115', 0, 1, 'C')
+        self.cell(lebar_teks, 4.5, 'Jl. Z.A. Pagar Alam No. 7, Gedong Meneng, Rajabasa, Bandar Lampung, Lampung 35145', 0, 1, 'C')
         
-        # Baris 4: KONTAK (Font Arial Reguler, 9pt)
-        self.set_x(40)
+        # Baris 4: KONTAK
+        self.set_x(titik_x_teks)
         self.set_font('Arial', '', 9)
         self.cell(lebar_teks, 4.5, 'Telepon: (0721) 701418 | Website: www.umitra.ac.id | Email: info@umitra.ac.id', 0, 1, 'C')
         
         # =====================================================================
-        # 3. GARIS PEMBATAS KOP SURAT (Garis Ganda / Double Line)
+        # 3. GARIS PEMBATAS KOP SURAT (DOUBLE LINE)
         # =====================================================================
-        # Garis Pertama (Lebih Tebal)
-        self.set_line_width(0.8) 
-        self.line(10, 37.5, self.w - 10, 37.5)
+        # Posisi Y garis diturunkan ke Y=48 untuk mengakomodasi tinggi logo yang membesar
+        posisi_y_garis = 48
         
-        # Garis Kedua (Tipis, tepat di bawah garis tebal)
+        # Garis Pertama (Tebal)
+        self.set_line_width(0.8) 
+        self.line(10, posisi_y_garis, self.w - 10, posisi_y_garis)
+        
+        # Garis Kedua (Tipis)
         self.set_line_width(0.2) 
-        self.line(10, 38.5, self.w - 10, 38.5)
+        self.line(10, posisi_y_garis + 1.5, self.w - 10, posisi_y_garis + 1.5)
         
         # =====================================================================
         # 4. RESET KOORDINAT UNTUK ISI SURAT
         # =====================================================================
-        # Memastikan isi surat selalu mulai dengan jarak aman dari garis
-        self.set_y(46)
+        # Jarak awal isi surat (Judul Surat) diturunkan ke Y=58
+        self.set_y(58)
 
     
     def footer(self):
