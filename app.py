@@ -178,7 +178,7 @@ def generate_pdf():
         'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
     ]
     # 3. Merangkai format tanggal (Contoh: 29 Mei 2026)
-    tanggal_sekarang = f"{waktu_sekarang.day} {bulan_indo[waktu_sekarang.month]} {waktu_sekarang.year}"
+    tanggal_sekarang = f'{waktu_sekarang.day} {bulan_indo[waktu_sekarang.month]} {waktu_sekarang.year}'
 
     pdf.cell(120)
     pdf.cell(0, 6, f'Bandar Lampung, {tanggal_sekarang}', 0, 1, 'L')
