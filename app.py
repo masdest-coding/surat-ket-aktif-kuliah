@@ -10,7 +10,8 @@ class PDF(FPDF):
         self.image('Logo_umitra.png', 10, 10, 35) 
         
         lebar_teks = self.w - 60
-        titik_x_text = 50
+        titik_x_teks = 50
+
         # Baris 1: KEMENTERIAN (Arial 11pt)
         self.set_xy(titik_x_teks, 11) 
         self.set_font('Arial', '', 11)
